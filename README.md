@@ -39,4 +39,164 @@
 	--------- Weed Shit End---------
 ```
 
+## qb-smallresources/server/consumables.lua
+
+```
+QBCore.Functions.CreateUseableItem("og_kush", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Useog_kush", source)
+    end
+end)
+QBCore.Functions.CreateUseableItem("purple_haze", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Usepurple_haze", source)
+    end
+end)
+QBCore.Functions.CreateUseableItem("ak47", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Useak47", source)
+    end
+end)
+QBCore.Functions.CreateUseableItem("skunk", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Useskunk", source)
+    end
+end)
+QBCore.Functions.CreateUseableItem("white_widow", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Usewhite_widow", source)
+    end
+end)
+QBCore.Functions.CreateUseableItem("amnesia", function(source, item)
+    local Player = QBCore.Functions.GetPlayer(source)
+	if Player.Functions.RemoveItem(item.name, 1, item.slot) then
+        TriggerClientEvent("consumables:client:Useamnesia", source)
+    end
+end)
+```
+
+## qb-smallresources/client/consumables.lua
+
+```
+RegisterNetEvent("consumables:client:Useog_kush")
+AddEventHandler("consumables:client:Useog_kush", function()
+    QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["og_kush"], "remove")
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            TriggerEvent('animations:client:EmoteCommandStart', {"smoke3"})
+        else
+            TriggerEvent('animations:client:EmoteCommandStart', {"smokeweed"})
+        end
+        TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
+        TriggerEvent('animations:client:SmokeWeed')
+		TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
+    end)
+end)
+RegisterNetEvent("consumables:client:Usepurple_haze")
+AddEventHandler("consumables:client:Usepurple_haze", function()
+    QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["purple_haze"], "remove")
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            TriggerEvent('animations:client:EmoteCommandStart', {"smoke3"})
+        else
+            TriggerEvent('animations:client:EmoteCommandStart', {"smokeweed"})
+        end
+        TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
+        TriggerEvent('animations:client:SmokeWeed')
+		TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
+    end)
+end)
+RegisterNetEvent("consumables:client:Useak47")
+AddEventHandler("consumables:client:Useak47", function()
+    QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["ak47"], "remove")
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            TriggerEvent('animations:client:EmoteCommandStart', {"smoke3"})
+        else
+            TriggerEvent('animations:client:EmoteCommandStart', {"smokeweed"})
+        end
+        TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
+        TriggerEvent('animations:client:SmokeWeed')
+		TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
+    end)
+end)
+RegisterNetEvent("consumables:client:Useskunk")
+AddEventHandler("consumables:client:Useskunk", function()
+    QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["skunk"], "remove")
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            TriggerEvent('animations:client:EmoteCommandStart', {"smoke3"})
+        else
+            TriggerEvent('animations:client:EmoteCommandStart', {"smokeweed"})
+        end
+        TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
+        TriggerEvent('animations:client:SmokeWeed')
+		TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
+    end)
+end)
+RegisterNetEvent("consumables:client:Usewhite_widow")
+AddEventHandler("consumables:client:Usewhite_widow", function()
+    QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["white_widow"], "remove")
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            TriggerEvent('animations:client:EmoteCommandStart', {"smoke3"})
+        else
+            TriggerEvent('animations:client:EmoteCommandStart', {"smokeweed"})
+        end
+        TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
+        TriggerEvent('animations:client:SmokeWeed')
+		TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
+    end)
+end)
+RegisterNetEvent("consumables:client:Useamnesia")
+AddEventHandler("consumables:client:Useamnesia", function()
+    QBCore.Functions.Progressbar("smoke_joint", "Lighting joint..", 1500, false, true, {
+        disableMovement = false,
+        disableCarMovement = false,
+		disableMouse = false,
+		disableCombat = true,
+    }, {}, {}, {}, function() -- Done
+        TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["amnesia"], "remove")
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            TriggerEvent('animations:client:EmoteCommandStart', {"smoke3"})
+        else
+            TriggerEvent('animations:client:EmoteCommandStart', {"smokeweed"})
+        end
+        TriggerEvent("evidence:client:SetStatus", "weedsmell", 300)
+        TriggerEvent('animations:client:SmokeWeed')
+		TriggerServerEvent('hud:Server:RelieveStress', math.random(14, 18))
+    end)
+end)
+```
+
 
