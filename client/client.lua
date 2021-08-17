@@ -1,10 +1,6 @@
 local CurrentWorkObject = {}
 local LoggedIn = false
 local InRange = false
-local QBCore = nil  
-
-QBCore = nil
-TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)  --#for restart
 
 Citizen.CreateThread(function()
   while true do
