@@ -6,10 +6,7 @@ game 'gta5'
 --############ Pluto ##############--
 --############# ❤ ################--
 --#################################--
-
-client_scripts {
- 'client/client.lua',
-}
-server_scripts {
- 'server/server.lua'
+shared_script '@qb-core/import.lua'
+client_script 'client/client.lua'
+server_script 'server/server.lua'
 }
