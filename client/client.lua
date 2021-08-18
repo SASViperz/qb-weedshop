@@ -7,7 +7,8 @@ Citizen.CreateThread(function()
     local sleep = 2000
       
           local PlayerCoords = GetEntityCoords(PlayerPedId())
-          local Distance = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, -1195.1990966797,-893.78881835938,13.99524307251, true)
+          local register = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 380.2029, -826.783, 29.302, true)
+          local pay = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 380.1904, -827.990, 29.302, true)
           local craft = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 375.8447,-824.7562,29.18074, true)
           local duty = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 381.7812,-819.0594,29.51204, true)
           local storage = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 374.4853, -828.501, 29.302, true)
@@ -22,6 +23,24 @@ Citizen.CreateThread(function()
           local WhiteWidowPlant = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 381.7623, -811.963, 29.304, true)
           local AmnesiaPlant = GetDistanceBetweenCoords(PlayerCoords.x, PlayerCoords.y, PlayerCoords.z, 382.8617, -811.961, 29.304, true)
           InRange = false
+          if pay < 10 then sleep = 2 end
+          if pay < 1.0 then
+              InRange = true
+              QBCore.Functions.DrawText3D(380.1904, -827.990, 29.302 ,'~g~G~w~ - Payment')
+                  if IsControlJustPressed(0, 47) then -- G
+                      TriggerEvent("qb-weedshop:client:open:payment")
+                  end
+          end
+            if register < 10 then sleep = 2 end
+            if register < 1.0 then
+                InRange = true
+                if QBCore.Functions.GetPlayerData().job.name =='weedshop' and QBCore.Functions.GetPlayerData().job.onduty then
+                QBCore.Functions.DrawText3D(380.2029, -826.783, 29.302 ,'~g~G~w~ - Register')
+                    if IsControlJustPressed(0, 47) then -- G
+                        TriggerEvent("qb-weedshop:client:open:register")
+                    end
+                  end
+            end
             if craft < 10 then sleep = 2 end
             if craft < 1.2 then
                 InRange = true
@@ -274,6 +293,49 @@ Citizen.CreateThread(function()
             end
           Citizen.Wait(sleep)
   end
+end)
+
+------------- Payments -------------
+
+RegisterNetEvent('qb-weedshop:client:open:payment')
+AddEventHandler('qb-weedshop:client:open:payment', function()
+  SetNuiFocus(true, true)
+  SendNUIMessage({action = 'OpenPayment', payments = Config.ActivePayments})
+end)
+
+RegisterNetEvent('qb-weedshop:client:open:register')
+AddEventHandler('qb-weedshop:client:open:register', function()
+  SetNuiFocus(true, true)
+  SendNUIMessage({action = 'OpenRegister'})
+end)
+
+RegisterNetEvent('qb-weedshop:client:sync:register')
+AddEventHandler('qb-weedshop:client:sync:register', function(RegisterConfig)
+  Config.ActivePayments = RegisterConfig
+end)
+
+function GetActiveRegister()
+  return Config.ActivePayments
+end
+
+RegisterNUICallback('Click', function()
+  PlaySound(-1, "CLICK_BACK", "WEB_NAVIGATION_SOUNDS_PHONE", 0, 0, 1)
+end)
+
+RegisterNUICallback('ErrorClick', function()
+  PlaySound(-1, "Place_Prop_Fail", "DLC_Dmod_Prop_Editor_Sounds", 0, 0, 1)
+end)
+
+RegisterNUICallback('AddPrice', function(data)
+  TriggerServerEvent('qb-weedshop:server:add:to:register', data.Price, data.Note)
+end)
+
+RegisterNUICallback('PayReceipt', function(data)
+  TriggerServerEvent('qb-weedshop:server:pay:receipt', data.Price, data.Note, data.Id)
+end)
+
+RegisterNUICallback('CloseNui', function()
+  SetNuiFocus(false, false)
 end)
 
 ------------- Context -------------

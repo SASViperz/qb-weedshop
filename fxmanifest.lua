@@ -6,7 +6,23 @@ game 'gta5'
 --############ Pluto ##############--
 --############# ❤ ################--
 --#################################--
-shared_script '@qb-core/import.lua'
-client_script 'client/client.lua'
-server_script 'server/server.lua'
+ui_page {'html/index.html'}
+
+client_scripts {
+ 'config.lua',
+ 'client/client.lua',
+}
+
+server_scripts {
+ 'config.lua',
+ 'server/server.lua'
+}
+exports {
+'GetActiveRegister',
+}
+
+files {
+ 'html/index.html',
+ 'html/css/style.css',
+ 'html/js/script.js',
 }

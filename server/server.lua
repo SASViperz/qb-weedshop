@@ -13,6 +13,35 @@ AddEventHandler('qb-weedshop:server:OGKushPick', function(Area, Coral, Bool)
     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items["weed_og_kush"], "add")
 end)]]
 
+RegisterServerEvent('qb-weedshop:server:add:to:register')
+AddEventHandler('qb-weedshop:server:add:to:register', function(Price, Note)
+    local RandomID = math.random(1111,9999)
+    Config.ActivePayments[RandomID] = {['Price'] = Price, ['Note'] = Note}
+    TriggerClientEvent('qb-weedshop:client:sync:register', -1, Config.ActivePayments)
+end)
+
+RegisterServerEvent('qb-weedshop:server:pay:receipt')
+AddEventHandler('qb-weedshop:server:pay:receipt', function(Price, Note, Id)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.Functions.RemoveMoney('cash', Price, 'burger-shot') then
+        if Config.ActivePayments[tonumber(Id)] ~= nil then
+            Config.ActivePayments[tonumber(Id)] = nil
+            
+            TriggerEvent('qb-weedshop:give:receipt:to:workers', Note, Price)
+            TriggerClientEvent('qb-weedshop:client:sync:register', -1, Config.ActivePayments)
+            print(Price)
+            TriggerEvent("qb-bossmenu:server:addAccountMoney", "weedshop", Price)
+
+            TriggerClientEvent('QBCore:Notify', src, 'You paid $'..Price..'.' , "success")
+        else
+            TriggerClientEvent('QBCore:Notify', src, 'Error..', "error")
+        end
+    else
+        TriggerClientEvent('QBCore:Notify', src, 'You don\'t have enough cash.', "error")
+    end
+end)
+
 --##############################################################################################################--
 --############################################### OGKush Picking ###############################################--
 --################################################## Pluto ❤ ##################################################--

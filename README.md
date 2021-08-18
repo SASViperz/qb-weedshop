@@ -5,6 +5,7 @@
 * Simple Weed Dispensary Job
 * Pick Weed To Craft Joints
 * Craft Joints To Sell
+* Payments
 
 ## qb-core/shared.lua
 
