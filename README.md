@@ -40,6 +40,31 @@
 	--------- Weed Shit End---------
 ```
 
+## qb-core/shared.lua
+
+```
+	["weedshop"] = {
+		label = "Weed",
+		defaultDuty = true,
+		bossmenu = vector3(379.9065, -817.549, 29.304),
+		grades = {
+            ['0'] = {
+                name = "Employee",
+                payment = 75
+            },
+			['1'] = {
+                name = "Manager",
+                payment = 150
+            },
+			['2'] = {
+                name = "Boss",
+				isboss = true,
+                payment = 250
+            },
+        },
+	},
+```
+
 ## qb-smallresources/server/consumables.lua
 
 ```
